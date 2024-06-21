@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
   const [[{cartCount}]] = await db.query('SELECT SUM(quantity) AS cartCount FROM cart;')
 
   // TODO: Convert the response below to render a handlebars template
-  res.sendFile(path.join(__dirname, '../views/index.html'))
+  res.render('index', {rows, cartCount})
 })
 
 router.get('/product/:id', async (req, res) => {
@@ -18,7 +18,7 @@ router.get('/product/:id', async (req, res) => {
   const [[{cartCount}]] = await db.query('SELECT SUM(quantity) AS cartCount FROM cart;')
 
   // TODO: Convert the response below to render a handlebars template
-  res.sendFile(path.join(__dirname, '../views/product.html'))
+  res.render('product', {product, cartCount})
 })
 
 router.get('/cart', async (req, res) => {
@@ -41,7 +41,7 @@ router.get('/cart', async (req, res) => {
     .toFixed(2)
 
   // TODO: Convert the response below to render a handlebars template
-  res.sendFile(path.join(__dirname, '../views/cart.html'))
+  res.render('cart', {cartItems, total})
 })
 
 module.exports = router
